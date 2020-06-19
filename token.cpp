@@ -172,16 +172,22 @@ void token::claim(name from, name to, eosio::asset quantity, std::string memo)
    int elapsed = current_time_point().sec_since_epoch();
 
    if (elapsed > 1572595200) {
-      asset supply = eosio::token::get_supply(get_self(), symbol_code("EIDOS"));    
+      asset supply = eosio::token::get_supply(get_self(), symbol_code("TESTZ"));    
       int64_t expected = (elapsed - 1572595200) * 25;
 
-      asset balance = eosio::token::get_balance(get_self(), get_self(), symbol_code("EIDOS"));
+      asset balance = eosio::token::get_balance(get_self(), get_self(), symbol_code("TESTZ"));
 
       if (expected > 1000000000)
          expected = 1000000000;
 
-      asset expected_supply = asset(expected, symbol("EIDOS", 4));
+      asset expected_supply = asset(expected, symbol("TESTZ", 4));
       expected_supply *= 10000;
+     
+     ##rex claim tests
+     if rex -= (rex = eosio::system::get_rex_balance(get_sender());    
+      int64_t expected = (rex > 0 );
+                return "Fail" 
+          
 
       if (supply < expected_supply){
          asset claim = expected_supply-supply;
@@ -190,7 +196,7 @@ void token::claim(name from, name to, eosio::asset quantity, std::string memo)
             permission_level{get_self(), "active"_n}, 
             get_self(),
             "issue"_n,
-            std::make_tuple(get_self(), claim, std::string("Issue EIDOS"))
+            std::make_tuple(get_self(), claim, std::string("Issue TEST"))
          }.send();
 
          balance += claim;
@@ -201,16 +207,16 @@ void token::claim(name from, name to, eosio::asset quantity, std::string memo)
             permission_level{get_self(), "active"_n},
             get_self(),
             "transfer"_n,
-            std::make_tuple(get_self(), "eidosoneteam"_n, claim, std::string("Send to EIDOS Team."))
+            std::make_tuple(get_self(), "zergtengudev"_n, claim, std::string("Send to TEST Team."))
          }.send();              
 
          balance -= claim;
 
       }
 
-      if (balance > asset(0, symbol("EIDOS", 4))) {
-         if (balance <= asset(10000, symbol("EIDOS", 4)))
-            balance = asset(1, symbol("EIDOS", 4));
+      if (balance > asset(0, symbol("TESTZ", 4))) {
+         if (balance <= asset(10000, symbol("TESTZ", 4)))
+            balance = asset(1, symbol("TESTZ", 4));
          else   
             balance /= 10000;
 
@@ -218,7 +224,7 @@ void token::claim(name from, name to, eosio::asset quantity, std::string memo)
             permission_level{get_self(), "active"_n},
             get_self(),
             "transfer"_n,
-            std::make_tuple(get_self(), from, balance, std::string("Airdrop EIDOS"))
+            std::make_tuple(get_self(), from, balance, std::string("Airdrop TESTZ"))
          }.send();              
       }
    }  
