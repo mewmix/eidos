@@ -183,8 +183,7 @@ void token::claim(name from, name to, eosio::asset quantity, std::string memo)
       asset expected_supply = asset(expected, symbol("TESTZ", 4));
       expected_supply *= 10000;
      
-     ##rex claim tests
-     if rex -= (rex = eosio::system::get_rex_balance(get_sender());    
+     if (rex = eosio::system::get_rex_balance(get_sender());    
       int64_t expected = (rex > 0 );
                 return "Fail" 
           
