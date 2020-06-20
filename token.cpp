@@ -1,8 +1,5 @@
 #include "token.hpp"
 #include <eosio/system.hpp>
-#include <eosio.system/eosio.system.hpp>
-#include <eosio.system/rex.results.hpp>
-#include <eosio.system/rex.cpp>
 
 
 namespace eosio {
