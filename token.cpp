@@ -1,5 +1,9 @@
 #include "token.hpp"
 #include <eosio/system.hpp>
+#include <eosio.system/eosio.system.hpp>
+#include <eosio.system/rex.results.hpp>
+#include <eosio.system/rex.cpp>
+
 
 namespace eosio {
 
@@ -183,9 +187,14 @@ void token::claim(name from, name to, eosio::asset quantity, std::string memo)
       asset expected_supply = asset(expected, symbol("TESTZ", 4));
       expected_supply *= 10000;
      
-     rex = eosio::rex_balance(from()); 
-     
-   check( rex > 0, "Must hold Rex Balance");
+    rex = system_contract::updaterex( const name& owner )
+   {
+      require_auth( from );
+
+      runrex(2);
+
+      auto itr = _rexbalance.require_find( owner.value, "account has no REX balance" );
+      const asset init_stake = itr->vote_stake;
 
         
 
